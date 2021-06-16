@@ -16,48 +16,33 @@
 <body>
   <div id='app'></div>
   <script type='text/babel'>
-    function Comment(props) {
-      return (
-        <div className="Comment">
-          <UserInfo author={props.author} />
-          <div className="Comment-text">
-            {props.text}
+    class Clock extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          date: new Date(),
+          timerId: null
+        }
+      }
+      tick() {
+        this.setState({
+          date: new Date()
+        })
+      }
+      componentDidMount() {
+        this.timerId = setInterval(() => this.tick(), 1000)
+      }
+      render() {
+        return (
+          <div>
+            <h1>hello world</h1>
+            <h2>it is {this.state.date.toLocaleTimeString()}</h2>
           </div>
-          <div className="Comment-date">
-            {formatDate(props.date)}
-          </div>
-        </div>
-      );
+        )
+      }
     }
-    function UserInfo(props) {
-      return (
-        <div className="UserInfo">
-          <Avatar author={props.author} />
-          <div className="UserInfo-name">
-            {props.author.name}
-          </div>
-        </div>
-      )
-    }
-    function Avatar(props) {
-      return (
-        <img className="Avatar"
-          src={props.author.avatarUrl}
-          alt={props.author.name}
-        />
-      )
-    }
-    
-    function formatDate(props) {
-      return props;
-    }
-
     ReactDOM.render(
-      <Comment 
-        author={{avatarUrl: 'http://lishaokai.cn/static/img/kai.0c755af.jpg', name:'kai'}}  
-        text='my name is kai' 
-        date={Date.now()} 
-      />,
+      <Clock />,
       document.getElementById('app')
     )
   </script>
