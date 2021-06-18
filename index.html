@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,38 +14,40 @@
     }
   </style>
 </head>
+
 <body>
   <div id='app'></div>
   <script type='text/babel'>
-    class Clock extends React.Component {
+    class Toggle extends React.Component {
       constructor(props) {
         super(props)
         this.state = {
-          date: new Date(),
-          timerId: null
+          isToggleOn: true,
+          arg: [1, 2, 3]
         }
+        this.a = this.handleClick.bind(this, this.state.arg)
       }
-      tick() {
+      handleClick(arr) {
+        console.log(123, arr);
         this.setState({
-          date: new Date()
+          isToggleOn: !this.state.isToggleOn,
+          arg: arr.reverse()
         })
-      }
-      componentDidMount() {
-        this.timerId = setInterval(() => this.tick(), 1000)
       }
       render() {
         return (
-          <div>
-            <h1>hello world</h1>
-            <h2>it is {this.state.date.toLocaleTimeString()}</h2>
-          </div>
+          <button onClick={this.a}>
+            {this.state.isToggleOn ? 'ON' : 'OFF'}
+            {this.state.arg + ''}
+          </button>
         )
       }
     }
     ReactDOM.render(
-      <Clock />,
+      <Toggle />,
       document.getElementById('app')
     )
   </script>
 </body>
+
 </html>
